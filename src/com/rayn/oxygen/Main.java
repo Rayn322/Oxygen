@@ -1,13 +1,21 @@
 package com.rayn.oxygen;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.UUID;
 
 public class Main extends JavaPlugin {
     
@@ -16,6 +24,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(oxygenMeter, this);
+        Bukkit.addRecipe(getHelmetRecipe());
     }
     
     @Override
@@ -43,6 +52,7 @@ public class Main extends JavaPlugin {
                 ItemStack helmet = new ItemStack(Material.GLASS);
                 ItemMeta helmetMeta = helmet.getItemMeta();
                 helmetMeta.setDisplayName("Helmet");
+                helmet.setItemMeta(helmetMeta);
                 player.getInventory().setHelmet(helmet);
                 
                 player.sendMessage(ChatColor.BLUE + "Helmet equipped.");
@@ -50,5 +60,29 @@ public class Main extends JavaPlugin {
         }
         
         return true;
+    }
+    
+    public ShapedRecipe getHelmetRecipe() {
+        
+        ItemStack helmet = new ItemStack(Material.CHAINMAIL_HELMET);
+        ItemMeta helmetMeta = helmet.getItemMeta();
+        helmetMeta.setDisplayName(net.md_5.bungee.api.ChatColor.YELLOW + "Helmet");
+        helmetMeta.setUnbreakable(true);
+        helmetMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.armor", -2, AttributeModifier.Operation.ADD_NUMBER);
+        helmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, modifier);
+        helmet.setItemMeta(helmetMeta);
+        
+        for (Attribute attribute : helmet.getItemMeta().getAttributeModifiers().keys()) {
+            System.out.println(attribute.name());
+        }
+        
+        NamespacedKey key = new NamespacedKey(this, "helmet");
+        ShapedRecipe recipe = new ShapedRecipe(key, helmet);
+        recipe.shape("III", "IGI", "   ");
+        recipe.setIngredient('I', Material.IRON_INGOT);
+        recipe.setIngredient('G', Material.GLASS_PANE);
+        
+        return recipe;
     }
 }
