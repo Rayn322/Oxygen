@@ -3,6 +3,7 @@ name: Oxygen
 version: "0.1"
 author: Rayn
 api-version: "1.16"
+description: "Plugin for 24Kings."
 
 commands:
   helmet:
