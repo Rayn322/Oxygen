@@ -1,14 +1,10 @@
 package com.rayn.oxygen;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -33,36 +29,36 @@ public class Main extends JavaPlugin {
     
     }
     
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        
-        if (label.equalsIgnoreCase("helmet")) {
-            
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("This command is only for players!");
-                return true;
-            }
-            
-            Player player = (Player) sender;
-            
-            // gives helmet if there is nothing on their head.
-            if (player.getInventory().getHelmet() != null) {
-                
-                player.sendMessage(ChatColor.RED + "Please take off your current helmet first.");
-                
-            } else {
-                ItemStack helmet = new ItemStack(Material.GLASS);
-                ItemMeta helmetMeta = helmet.getItemMeta();
-                helmetMeta.setDisplayName("Helmet");
-                helmet.setItemMeta(helmetMeta);
-                player.getInventory().setHelmet(helmet);
-                
-                player.sendMessage(ChatColor.BLUE + "Helmet equipped.");
-            }
-        }
-        
-        return true;
-    }
+//    @Override
+//    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+//
+//        if (label.equalsIgnoreCase("helmet")) {
+//
+//            if (!(sender instanceof Player)) {
+//                sender.sendMessage("This command is only for players!");
+//                return true;
+//            }
+//
+//            Player player = (Player) sender;
+//
+//            // gives helmet if there is nothing on their head.
+//            if (player.getInventory().getHelmet() != null) {
+//
+//                player.sendMessage(ChatColor.RED + "Please take off your current helmet first.");
+//
+//            } else {
+//                ItemStack helmet = new ItemStack(Material.GLASS);
+//                ItemMeta helmetMeta = helmet.getItemMeta();
+//                helmetMeta.setDisplayName("Helmet");
+//                helmet.setItemMeta(helmetMeta);
+//                player.getInventory().setHelmet(helmet);
+//
+//                player.sendMessage(ChatColor.BLUE + "Helmet equipped.");
+//            }
+//        }
+//
+//        return true;
+//    }
     
     public ShapedRecipe getHelmetRecipe() {
         

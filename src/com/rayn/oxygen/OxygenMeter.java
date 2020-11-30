@@ -154,7 +154,7 @@ public class OxygenMeter implements Listener {
                     bar.setProgress((double) oxygenLevels.get(playerIndex) / maxOxygen);
                 }
                 
-                if (oxygenLevels.get(playerIndex) == 0) {
+                if (oxygenLevels.get(playerIndex) == 0 || hasEquipment(player)) {
                     isLoosingOxygenQuickly.set(playerIndex, false);
                     cancel();
                 }
